@@ -7,7 +7,7 @@ package networksimulator2016;
 
 /**
  *
- * @author USMETRO
+ * @author Nathan
  */
 public class NetworkSimulator2016 {
 
