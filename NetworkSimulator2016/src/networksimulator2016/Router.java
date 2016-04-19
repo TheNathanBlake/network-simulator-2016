@@ -16,7 +16,7 @@ public class Router
 {
     private final int id;
     private int[][] map;
-    private Set<Integer> connections;
+    private Set<Router> connections;
     /**
      * public Router
      * @param id a provided integer as index for the router.
@@ -27,6 +27,7 @@ public class Router
         this.id = id;
         map = new int[][] 
         {
+            // 0: distance, 1: router
             {16, -1},
             {16, -1},
             {16, -1},
@@ -35,14 +36,16 @@ public class Router
             {16, -1}
         };
         map[id][0] = 0;
+        map[id][1] = id;
         connections = new HashSet<>();
     }
     
-    public void connectDirectly(int router, int distance)
+    public void connectDirectly(Router router, int distance)
     {
         connections.add(router);
-        this.map[router][0] = distance;
-        this.map[router][1] = router;
+        //write distance to the map to shortcut the process
+        this.map[router.getId()][0] = distance;
+        this.map[router.getId()][1] = router.getId();
     }
     
     public int getId() 
@@ -54,13 +57,17 @@ public class Router
         return this.map;
     }
     
-    private void update(int router, int[][] map) {
-        for(int i = 0; i < 6; i++) {
-            if(i == router) ;
-            else {
-                this.map[i][0] = Math.min(map[i][0], )
-                
+    private void update() {
+        connections.stream().forEach((router) -> {
+            int[][] remoteMap = router.getMap();
+            
+            for(int i = 0; i < 6; i++) {
+                if((remoteMap[i][0] + this.map[router.getId()][0]) < this.map[i][0]) {
+                    // Update the map to the shortest
+                    this.map[i][0] = remoteMap[i][0];
+                    this.map[i][1] = router.getId();
+                }
             }
-        }
+        });
     }
 }
