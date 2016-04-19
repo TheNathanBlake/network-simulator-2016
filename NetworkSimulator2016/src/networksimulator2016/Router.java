@@ -6,6 +6,8 @@
 package networksimulator2016;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 /**
  *
  * @author Nathan
@@ -13,9 +15,8 @@ import java.util.ArrayList;
 public class Router
 {
     private final int id;
-    private ArrayList<Integer> distances;
-    private ArrayList<Integer> next; //
-    
+    private int[][] map;
+    private Set<Integer> connections;
     /**
      * public Router
      * @param id a provided integer as index for the router.
@@ -24,35 +25,36 @@ public class Router
     public Router(Integer id)
     {
         this.id = id;
-        distances = new ArrayList<>();
-        
-        if(id >= 6)
+        map = new int[][] 
         {
-            System.out.println("Warning: program not designed to handle >6 routers.");
-        }
-        for(int i = 0; i < 6; i++)
-        {
-            if(i == id)
-            {
-                distances.add(0);
-            }
-            else
-            {
-                distances.add(-1);
-            }            
-            next.add(-1);
-        }
+            {16, -1},
+            {16, -1},
+            {16, -1},
+            {16, -1},
+            {16, -1},
+            {16, -1}
+        };
+        map[id][0] = 0;
+        connections = new HashSet<>();
     }
     
-    public void connectDirectly(Router router, int distance)
+    public void connectDirectly(int router, int distance)
     {
-        int id = router.getId();
-        this.distances.set(id, distance);
-        this.next.set(id, id);
+        connections.add(router);
+        this.map[router][0] = distance;
+        this.map[router][1] = router;
     }
     
     public int getId() 
     {
         return this.id;
+    }
+    
+    public int[][] getMap() {
+        return this.map;
+    }
+    
+    private void update(int router, int[][] map) {
+        
     }
 }

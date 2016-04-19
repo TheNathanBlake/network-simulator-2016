@@ -40,14 +40,13 @@ public class NetworkSimulator2016 {
             while((line = br.readLine()) != null) {
                 String[] values = line.split(" ");
                 network.get(Integer.parseInt(values[0])).connectDirectly(
-                        network.get(Integer.parseInt(values[1])),
+                        Integer.parseInt(values[1]),
                         Integer.parseInt(values[2]));
-                System.out.printf("Node1: %s, Node2: %s, distance: %s\n", values[0], values[1], values[2]);
+                System.out.printf("Host1: %s, Host2: %s, distance: %s\n", values[0], values[1], values[2]);
             }
         }
         catch(IOException e) {
             e.printStackTrace(System.out);
         }
     }
-    
 }
