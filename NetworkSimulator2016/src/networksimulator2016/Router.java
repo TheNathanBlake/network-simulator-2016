@@ -55,6 +55,12 @@ public class Router
     }
     
     private void update(int router, int[][] map) {
-        
+        for(int i = 0; i < 6; i++) {
+            if(i == router) ;
+            else {
+                this.map[i][0] = Math.min(map[i][0], )
+                
+            }
+        }
     }
 }
